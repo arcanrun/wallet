@@ -78,10 +78,10 @@ class Wallet:
         return self._salary
 
     def show_max_50_for_today(self, days):
-        return self.common / days
+        return round(self.common / days, 2)
 
     def show_max_30_for_today(self, days):
-        return self.fun / days
+        return round(self.fun / days, 2)
 
 
 

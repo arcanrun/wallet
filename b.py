@@ -14,7 +14,7 @@ class Budget(Menu):
 
 
     def show_all_info(self):
-        print('_'*10, 'Общая информация', '_'*10,'\n')
+        print('_'*10, 'Общая информация ', self.name , '_'*10,'\n')
         print('День зарплаты: ' + str(self.calendar.get_day_of_salary()))
         self.calendar.show_date()
         self.calendar.count_days_before_salary()

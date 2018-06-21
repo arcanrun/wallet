@@ -1,14 +1,29 @@
 from b import *
-
+import shelve
+import sys
 
 if __name__ == '__main__':
+
+    def exit():
+        print('Exit: y / n?')
+        ans = input()
+        if ans == 'y':
+            db[wallet.name] = wallet
+            db.close()
+            sys.exit('Bye-bye!')
+        else:
+            mainMenu()
+
+
+    db = shelve.open('wallet-db')
 
     wallet = Budget()
     menu = Menu()
 
+
     print('From histoty: ', wallet.history.get_budget())
 
-    if wallet.history.get_budget() == 0:
+    if len(db) == 0:
         print('Введите имя владельца кошелька')
         name = input()
 
@@ -20,7 +35,16 @@ if __name__ == '__main__':
 
 
         wallet = Budget(name, zarp, day)
+        db[wallet.name] = wallet
+        wallet = db[wallet.name]
         wallet.show_all_info()
+    else:
+        print('Пользователи:')
+        i = 1
+        for k, v in db.items():
+            print('\t',i,'.',k)
+            i += 1
+        i = 1
 
     mnu = {
         '1': wallet.expenses,
@@ -28,7 +52,8 @@ if __name__ == '__main__':
         '3': wallet.calendar.set_next_day_salary,
         '4': wallet.calendar.set_day_of_salary,
         '5': wallet.show_all_info,
-        '6': wallet.history.get_trans
+        '6': wallet.history.get_trans,
+        '7': exit
     }
 
     mnu_items = [
@@ -37,7 +62,9 @@ if __name__ == '__main__':
         'Изменить день зарплаты для следующей зарплты',
         'Изменить день текущей зарплаты',
         'Вся информация',
-        'История'
+        'История',
+        'Выход'
+
     ]
 
     def mainMenu():
@@ -52,8 +79,8 @@ if __name__ == '__main__':
             m = input()
             mnu.get(n, mainMenu)(m)
             mainMenu()
-
-
+        db[wallet.name] = wallet
+# ======== here we go =========
     mainMenu()
 
 
