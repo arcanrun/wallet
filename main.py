@@ -3,26 +3,32 @@ from b import *
 
 if __name__ == '__main__':
 
-    arcan = Budget()
+    wallet = Budget()
     menu = Menu()
 
-    print('From histoty: ', arcan.history.get_budget())
+    print('From histoty: ', wallet.history.get_budget())
 
-    if arcan.history.get_budget() == 0:
+    if wallet.history.get_budget() == 0:
+        print('Введите имя владельца кошелька')
+        name = input()
+
         print('Введите сумму зарплаты')
         zarp = input()
+
         print('Введите когда вы получили зарплату: год.месяц.день')
         day = input()
-        arcan = Budget(zarp, day)
-    arcan.show_all_info()
+
+
+        wallet = Budget(name, zarp, day)
+        wallet.show_all_info()
 
     mnu = {
-        '1': arcan.expenses,
-        '2': arcan.add_in_budget,
-        '3': arcan.calendar.set_next_day_salary,
-        '4': arcan.calendar.set_day_of_salary,
-        '5': arcan.show_all_info,
-        '6': arcan.history.get_trans
+        '1': wallet.expenses,
+        '2': wallet.add_in_budget,
+        '3': wallet.calendar.set_next_day_salary,
+        '4': wallet.calendar.set_day_of_salary,
+        '5': wallet.show_all_info,
+        '6': wallet.history.get_trans
     }
 
     mnu_items = [

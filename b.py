@@ -5,7 +5,8 @@ from History import *
 
 
 class Budget(Menu):
-    def __init__(self, salary=0, day_of_salary='1900.01.01'):
+    def __init__(self, name=None, salary=0, day_of_salary='1900.01.01'):
+        self.name = name
         self.wallet = Wallet(salary)
         self.calendar = Calendar(day_of_salary)
         self.history = History(self.wallet)
@@ -25,7 +26,8 @@ class Budget(Menu):
         print('Сегодня вы моgете потратить из обшего бюдета: ', self.wallet.show_max_50_for_today(self.calendar.counter_days))
         print('Сегодня вы моgете потратить на развлечения:', self.wallet.show_max_30_for_today(self.calendar.counter_days))
 
-        print('История:\n', self.history.get_trans())
+        print('История:')
+        self.history.get_trans()
         print('Бюдget: ', self.history.get_budget())
 
     def expenses(self,expenses):
