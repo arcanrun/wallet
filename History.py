@@ -15,7 +15,9 @@ class History:
     def get_trans(self):
 
         for k,v in self.trans.items():
-            print(k,v)
+            print(k,':')
+            for i in v:
+                print('\t',i)
 
     def transaction(self, date, trans_val):
         if date in self.trans:

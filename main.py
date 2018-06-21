@@ -3,12 +3,12 @@ from b import *
 
 if __name__ == '__main__':
 
-    arcan = Budget('15000', '2018.06.10')
+    arcan = Budget()
     menu = Menu()
 
-    print('From histoty: ', arcan.history.budget)
+    print('From histoty: ', arcan.history.get_budget())
 
-    if arcan.history.budget == 0:
+    if arcan.history.get_budget() == 0:
         print('Введите сумму зарплаты')
         zarp = input()
         print('Введите когда вы получили зарплату: год.месяц.день')
