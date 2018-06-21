@@ -27,7 +27,9 @@ if __name__ == '__main__':
         wallet = Budget(name, zarp, day)
         db[wallet.name] = wallet
         wallet = db[wallet.name]
-        wallet.show_all_info()
+
+        return wallet
+
 
 
 
@@ -40,19 +42,9 @@ if __name__ == '__main__':
     print('From histoty: ', wallet.history.get_budget())
 
     if len(db) == 0:
-        print('Введите имя владельца кошелька')
-        name = input()
-
-        print('Введите сумму зарплаты')
-        zarp = input()
-
-        print('Введите когда вы получили зарплату: год.месяц.день')
-        day = input()
-
-        wallet = Budget(name, zarp, day)
-        db[wallet.name] = wallet
-        wallet = db[wallet.name]
+        wallet = user()
         wallet.show_all_info()
+
     else:
         print('Пользователи:')
         i = 1
@@ -78,7 +70,8 @@ if __name__ == '__main__':
         '4': wallet.calendar.set_day_of_salary,
         '5': wallet.show_all_info,
         '6': wallet.history.get_trans,
-        '7': exit
+        '7': None,
+        '8': exit
     }
 
     mnu_items = [
@@ -88,7 +81,8 @@ if __name__ == '__main__':
         'Изменить день текущей зарплаты',
         'Вся информация',
         'История',
-        'Выход'
+        'Сменить пользователя',
+        'Сохранить и выйти'
 
     ]
 
@@ -96,15 +90,21 @@ if __name__ == '__main__':
         menu.show_mnu(mnu, mnu_items)
         n = input()
 
-        if n.isalpha() or (int(n) > 6 or int(n) < 1) or int(n) == 5 or int(n) == 6:
+        if n.isalpha() or (int(n) < 1 or int(n) == 5 or int(n) == 6 or int(n) >= 8):
             mnu.get(n, mainMenu)()
             mainMenu()
+        elif int(n) == 7:
+
+            print(wallet.name)
+
+
         else:
             print('Значение:')
             m = input()
             mnu.get(n, mainMenu)(m)
             mainMenu()
-        db[wallet.name] = wallet
+
+
 
 
 # ======== here we go =========
