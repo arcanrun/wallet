@@ -14,6 +14,22 @@ if __name__ == '__main__':
         else:
             mainMenu()
 
+    def user():
+        print('Введите имя владельца кошелька')
+        name = input()
+
+        print('Введите сумму зарплаты')
+        zarp = input()
+
+        print('Введите когда вы получили зарплату: год.месяц.день')
+        day = input()
+
+        wallet = Budget(name, zarp, day)
+        db[wallet.name] = wallet
+        wallet = db[wallet.name]
+        wallet.show_all_info()
+
+
 
     db = shelve.open('wallet-db')
 
@@ -33,7 +49,6 @@ if __name__ == '__main__':
         print('Введите когда вы получили зарплату: год.месяц.день')
         day = input()
 
-
         wallet = Budget(name, zarp, day)
         db[wallet.name] = wallet
         wallet = db[wallet.name]
@@ -41,10 +56,20 @@ if __name__ == '__main__':
     else:
         print('Пользователи:')
         i = 1
+        users = []
         for k, v in db.items():
             print('\t',i,'.',k)
+            users.append(k)
             i += 1
         i = 1
+        print('Выберите пользователя:')
+        user = int(input())-1
+        try:
+            wallet = db[users[user]]
+            print('Пользователь под именем', wallet.name, 'выбран')
+        except Exception:
+            sys.exit('\tERROR!: Такого пользователя не существует!')
+
 
     mnu = {
         '1': wallet.expenses,
@@ -80,6 +105,8 @@ if __name__ == '__main__':
             mnu.get(n, mainMenu)(m)
             mainMenu()
         db[wallet.name] = wallet
+
+
 # ======== here we go =========
     mainMenu()
 
