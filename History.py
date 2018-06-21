@@ -12,8 +12,8 @@ class History:
     def __init__(self, budget = None):
         self.budget = budget
         self.trans = {}
-    def get_trans(self):
 
+    def get_trans(self):
         for k,v in self.trans.items():
             print(k,':')
             for i in v:
