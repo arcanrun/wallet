@@ -23,6 +23,7 @@ class Budget(Menu):
         print('Развлечения: ', self.wallet.fun)
         print('Инвестиции: ', self.wallet.invest)
         print()
+
         print('Бюджeт: ', self.history.get_budget(), '/', 'Инвестиции: ', self.wallet.get_invest())
         print('Все деньги:  ', round(self.wallet._salary, 2))
         print('.'*50)
@@ -32,8 +33,8 @@ class Budget(Menu):
         print('Сегодня вы можете потратить на развлечения:', self.wallet.show_max_30_for_today(self.calendar.counter_days))
         print('.'*50)
         print('_'*20,'История:', '_'*20)
-        self.history.get_trans()
-        print('_'*50)
+
+      
 
 
     def check_correct_expenses(self, result):
