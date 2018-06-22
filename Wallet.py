@@ -11,6 +11,7 @@ class Wallet:
 
     def get_clean_salary(self):
         return round(self._salary - self.invest, 2)
+
     def get_invest(self):
         return self.invest
 
@@ -27,9 +28,6 @@ class Wallet:
         else:
             self._salary -= expenses
             return '-budget:' + str(expenses)
-
-    def show_budget(self):
-        print('\nYour budget: ' + str(self.salary))
 
     def common_50_add(self,salary):
         salary = float(salary)
@@ -96,6 +94,9 @@ class Wallet:
 
     def show_max_30_for_today(self, days):
         return round(self.fun / days, 2)
+
+    def show_budget(self):
+        print('\nYour budget: ' + str(self.salary))
 
 
 
