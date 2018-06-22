@@ -14,7 +14,21 @@ if __name__ == '__main__':
         else:
             mainMenu()
 
-    def user():
+    def clear_db():
+        print('Удалить все данные?\nY / N:')
+        res = input()
+        if res == 'Y' or res == 'y':
+            print('Вы уверены? 3то удалит все накопленные данные!\nY / N:')
+            res_2 = input()
+            if res_2 == 'Y' or res_2 == 'y':
+                db.clear()
+                sys.exit('Базаданныx очищена!')
+            else:
+                mainMenu()
+        else:
+            mainMenu()
+
+    def create_user():
         print('Введите имя владельца кошелька')
         name = input()
 
@@ -25,13 +39,8 @@ if __name__ == '__main__':
         day = input()
 
         wallet = Budget(name, zarp, day)
-        db[wallet.name] = wallet
-        wallet = db[wallet.name]
 
         return wallet
-
-
-
 
     db = shelve.open('wallet-db')
 
@@ -42,7 +51,10 @@ if __name__ == '__main__':
     print('From histoty: ', wallet.history.get_budget())
 
     if len(db) == 0:
-        wallet = user()
+        wallet = create_user()
+        db[wallet.name] = wallet
+        wallet = db[wallet.name]
+
         wallet.show_all_info()
 
     else:
@@ -71,7 +83,8 @@ if __name__ == '__main__':
         '5': wallet.show_all_info,
         '6': wallet.history.get_trans,
         '7': None,
-        '8': exit
+        '8': exit,
+        '9': clear_db
     }
 
     mnu_items = [
@@ -81,8 +94,9 @@ if __name__ == '__main__':
         'Изменить день текущей зарплаты',
         'Вся информация',
         'История',
-        'Сменить пользователя',
-        'Сохранить и выйти'
+        'Новый пользователь',
+        'Сохранить и выйти',
+        'Очистить базу данныx'
 
     ]
 
@@ -94,9 +108,12 @@ if __name__ == '__main__':
             mnu.get(n, mainMenu)()
             mainMenu()
         elif int(n) == 7:
+            wallet = create_user()
+            db[wallet.name] = wallet
+            wallet = db[wallet.name]
 
-            print(wallet.name)
-
+            wallet.show_all_info()
+            mainMenu()
 
         else:
             print('Значение:')

@@ -7,23 +7,26 @@ class Wallet:
         self._salary = new_salary
 
     def get_salary(self):
-        print(self._salary)
+        print(round(self._salary - self.invest,2))
 
     def get_clean_salary(self):
-        return self._salary
+        return round(self._salary - self.invest, 2)
+    def get_invest(self):
+        return self.invest
 
     def common_fun_invest(self):
-        self.common = round(self._salary * 0.5)
-        self.fun = round(self._salary * 0.3)
-        self.invest = round(self._salary * 0.2)
+        self.common = round(self._salary * 0.5, 2)
+        self.fun = round(self._salary * 0.3, 2)
+        self.invest = round(self._salary * 0.2, 2)
 
     def minus_salary(self, expenses):
         expenses = float(expenses)
-        self._salary -= expenses
-        self.common_fun_invest()
-
-        return self._salary
-
+        expenses = float(expenses)
+        if expenses > self._salary:
+            return 'error'
+        else:
+            self._salary -= expenses
+            return '-budget:' + str(expenses)
 
     def show_budget(self):
         print('\nYour budget: ' + str(self.salary))
@@ -51,31 +54,42 @@ class Wallet:
 
     def common_50_minus(self, expenses):
         expenses = float(expenses)
-        self.common -= expenses
-        self._salary -= expenses
+        if expenses > self.common:
+            return 'error'
+        else:
+            self.common -= expenses
+            self._salary -= expenses
 
-        return '-common:' + str(expenses)
+            return '-common:' + str(expenses)
 
     def fun_30_minus(self, expenses):
         expenses = float(expenses)
-        self.fun -= expenses
-        self._salary -= expenses
+        expenses = float(expenses)
+        if expenses > self.fun:
+            return 'error'
+        else:
+            self.fun -= expenses
+            self._salary -= expenses
 
-        return '-fun:' + str(expenses)
+            return '-fun:' + str(expenses)
 
     def invest_20_minus(self, expenses):
         expenses = float(expenses)
-        self.invest -= expenses
-        self._salary -= expenses
+        expenses = float(expenses)
+        if expenses > self.invest:
+            return 'error'
+        else:
+            self.invest -= expenses
+            self._salary -= expenses
 
-        return '-invest:' + str(expenses)
+            return '-invest:' + str(expenses)
 
     def add_salary(self, salary):
         salary = float(salary)
         self._salary += salary
         self.common_fun_invest()
 
-        return self._salary
+        return '+budget:' + str(salary)
 
     def show_max_50_for_today(self, days):
         return round(self.common / days, 2)

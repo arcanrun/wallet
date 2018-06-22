@@ -11,24 +11,38 @@ class Budget(Menu):
         self.calendar = Calendar(day_of_salary)
         self.history = History(self.wallet)
 
-
-
     def show_all_info(self):
+
         print('_'*10, 'Общая информация ', self.name , '_'*10,'\n')
-        print('День зарплаты: ' + str(self.calendar.get_day_of_salary()))
         self.calendar.show_date()
+        print('День зарплаты: ' + str(self.calendar.get_day_of_salary()))
+
         self.calendar.count_days_before_salary()
-        print('Общее: ', self.wallet.common)
+        print('.'*50)
+        print('Общее: ', round(self.wallet.common,2))
         print('Развлечения: ', self.wallet.fun)
         print('Инвестиции: ', self.wallet.invest)
-        print('Budget ', self.wallet._salary)
+        print()
+        print('Бюджeт: ', self.history.get_budget(), '/', 'Инвестиции: ', self.wallet.get_invest())
+        print('Все деньги:  ', round(self.wallet._salary, 2))
+        print('.'*50)
 
-        print('Сегодня вы моgете потратить из обшего бюдета: ', self.wallet.show_max_50_for_today(self.calendar.counter_days))
-        print('Сегодня вы моgете потратить на развлечения:', self.wallet.show_max_30_for_today(self.calendar.counter_days))
 
-        print('История:')
+        print('Сегодня вы можете потратить из обшего бюджета: ', self.wallet.show_max_50_for_today(self.calendar.counter_days))
+        print('Сегодня вы можете потратить на развлечения:', self.wallet.show_max_30_for_today(self.calendar.counter_days))
+        print('.'*50)
+        print('_'*20,'История:', '_'*20)
         self.history.get_trans()
-        print('Бюдget: ', self.history.get_budget())
+        print('_'*50)
+
+
+    def check_correct_expenses(self, result):
+        if result == 'error':
+            print('**** ERROR: расxоды больше существующей суммы! ****')
+        else:
+            if 'budget' in result:
+                self.history.budget_changed(result)
+            self.history.transaction(self.calendar.show_clean_date(), result)
 
     def expenses(self,expenses):
 
@@ -44,15 +58,11 @@ class Budget(Menu):
 
         res = mnu.get(n)(expenses)
 
-
-        # add to history
-        if int(n) == 4:
-            self.history.budget_changed(res)
-            self.history.transaction(self.calendar.show_clean_date(), '-budget:' + str(expenses))
-        elif int(n) < 4 and int(n) >= 1:
-            self.history.transaction(self.calendar.show_clean_date(), res)
+        if int(n) < int(len(mnu)) or int(n) > 1:
+            self.check_correct_expenses(res)
         else:
             print('Error menu item')
+
 
     def add_in_budget(self, salary):
 
@@ -72,12 +82,7 @@ class Budget(Menu):
         except Exception:
             return 'errror in menu item'
 
-        # add to history
-        if n == '4':
-            self.history.budget_changed(res)
-            self.history.transaction(self.calendar.show_clean_date(), '+budget:' + str(salary))
-        else:
-            self.history.transaction(self.calendar.show_clean_date(), res)
+        self.history.transaction(self.calendar.show_clean_date(), res)
 
 
 if __name__ == '__main__':
