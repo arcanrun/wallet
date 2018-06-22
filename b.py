@@ -19,25 +19,20 @@ class Budget(Menu):
 
         self.calendar.count_days_before_salary()
         print('.'*50)
+        print()
         print('Общее: ', round(self.wallet.common,2))
         print('Развлечения: ', self.wallet.fun)
         print('Инвестиции: ', self.wallet.invest)
         print()
-
+        print('Все деньги:  ', self.wallet.salary)
         print('Бюджeт: ', self.history.get_budget(), '/', 'Инвестиции: ', self.wallet.get_invest())
-        print('Все деньги:  ', round(self.wallet._salary, 2))
-        print('.'*50)
+        print()
 
         print('Сегодня вы можете потратить из обшего бюджета: ', self.wallet.show_max_50_for_today(self.calendar.counter_days))
         print('Сегодня вы можете потратить на развлечения:', self.wallet.show_max_30_for_today(self.calendar.counter_days))
-        print('.'*50)
-        print('_'*20,'История:', '_'*20)
 
-        print('Бюджeт: ', self.history.get_budget(), '/', 'Инвестиции: ', self.wallet.get_invest())
-        print('Все деньги:  ', round(self.wallet._salary, 2))
-        print('.'*50)
-
-        print('История:')
+        print()
+        print('.'*20,'История','.'*20)
         self.history.get_trans()
         print('_'*50)
 
@@ -67,7 +62,6 @@ class Budget(Menu):
             self.check_correct_expenses(res)
         else:
             print('Error menu item')
-
 
     def add_in_budget(self, salary):
 

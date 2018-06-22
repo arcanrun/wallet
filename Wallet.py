@@ -7,7 +7,9 @@ class Wallet:
         self._salary = new_salary
 
     def get_salary(self):
-        print(round(self._salary - self.invest,2))
+        return round(self._salary, 2)
+
+    salary = property(get_salary, set_salary, None, None)
 
     def get_clean_salary(self):
         return round(self._salary - self.invest, 2)
