@@ -9,13 +9,13 @@ class Budget(Menu):
         self.name = name
         self.wallet = Wallet(salary)
         self.calendar = Calendar(day_of_salary)
-        self.history = History(self.wallet)
+        self.history = History()
 
     def show_all_info(self):
 
         print('_'*10, 'Общая информация ', self.name , '_'*10,'\n')
-        self.calendar.show_date()
-        print('День зарплаты: ' + str(self.calendar.get_day_of_salary()))
+        print('Сегодня: ', self.calendar.show_date())
+        print('День зарплаты: ' + str(self.calendar.day_of_salary))
 
         self.calendar.count_days_before_salary()
         print('.'*50)
@@ -25,7 +25,7 @@ class Budget(Menu):
         print('Инвестиции: ', self.wallet.invest)
         print()
         print('Все деньги:  ', self.wallet.salary)
-        print('Бюджeт: ', self.history.get_budget(), '/', 'Инвестиции: ', self.wallet.get_invest())
+        print('Бюджeт: ', self.wallet.get_clean_salary(), '/', 'Инвестиции: ', self.wallet.get_invest())
         print()
 
         print('Сегодня вы можете потратить из обшего бюджета: ', self.wallet.show_max_50_for_today(self.calendar.counter_days))
@@ -40,9 +40,9 @@ class Budget(Menu):
         if result == 'error':
             print('**** ERROR: расxоды больше существующей суммы! ****')
         else:
-            if 'budget' in result:
-                self.history.budget_changed(result)
-            self.history.transaction(self.calendar.show_clean_date(), result)
+            # if 'budget' in result:
+            #     self.history.budget_changed(result)
+            self.history.transaction(self.calendar.show_date(), result)
 
     def expenses(self,expenses):
 
@@ -81,7 +81,7 @@ class Budget(Menu):
         except Exception:
             return 'errror in menu item'
 
-        self.history.transaction(self.calendar.show_clean_date(), res)
+        self.history.transaction(self.calendar.show_date(), res)
 
 
 if __name__ == '__main__':

@@ -4,10 +4,11 @@ class Calendar:
     def __init__(self, day_of_salary):
 
         self._day_of_salary = datetime.datetime(int(day_of_salary.split('.')[0]),
-                                               int(day_of_salary.split('.')[1]),
-                                               int(day_of_salary.split('.')[2]))
+                                                int(day_of_salary.split('.')[1]),
+                                                int(day_of_salary.split('.')[2]))
+
         self._next_payday = datetime.datetime(self._day_of_salary.year, self._day_of_salary.month + 1,
-                                             self._day_of_salary.day)
+                                              self._day_of_salary.day)
 
     def get_day_of_salary(self):
         return self._day_of_salary.strftime('%d-%m-%Y')
@@ -17,18 +18,18 @@ class Calendar:
                                                int(new_day_of_salary.split('.')[1]),
                                                int(new_day_of_salary.split('.')[2]))
 
-    def get_next_day_salary(self):
+    def get_next_payday(self):
         return self._next_payday
 
-    def set_next_day_salary(self, new_next_day_salary):
+    def set_next_payday(self, new_next_day_salary):
         self._next_payday = datetime.datetime(int(new_next_day_salary.split('.')[0]),
                                               int(new_next_day_salary.split('.')[1]),
                                               int(new_next_day_salary.split('.')[2]))
 
-    def show_date(self):
-        print('Сегодня: ', datetime.date.today().strftime('%d-%m-%Y'))
+    day_of_salary = property(get_day_of_salary, set_day_of_salary, None, None)
+    next_day = property(get_next_payday, set_next_payday)
 
-    def show_clean_date(self):
+    def show_date(self):
         return str(datetime.date.today().strftime('%d-%m-%Y'))
 
     def count_days_before_salary(self):

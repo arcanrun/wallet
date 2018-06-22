@@ -47,9 +47,6 @@ if __name__ == '__main__':
     wallet = Budget()
     menu = Menu()
 
-
-    print('From histoty: ', wallet.history.get_budget())
-
     if len(db) == 0:
         wallet = create_user()
         db[wallet.name] = wallet
@@ -78,7 +75,7 @@ if __name__ == '__main__':
     mnu = {
         '1': wallet.expenses,
         '2': wallet.add_in_budget,
-        '3': wallet.calendar.set_next_day_salary,
+        '3': wallet.calendar.set_next_payday,
         '4': wallet.calendar.set_day_of_salary,
         '5': wallet.show_all_info,
         '6': wallet.history.get_trans,

@@ -9,24 +9,20 @@ class History:
                 12_04_2018:['+budget:1000']
             }
     """
-    def __init__(self, budget = None):
-        self.budget = budget
+    def __init__(self):
         self.trans = {}
 
     def get_trans(self):
-        for k,v in self.trans.items():
-            print(k,':')
-            for i in v:
-                print('\t',i)
+        if len(self.trans) == 0:
+            print('**** В истории нет записей ****')
+        else:
+            for k,v in self.trans.items():
+                print(k,':')
+                for i in v:
+                    print('\t',i)
 
     def transaction(self, date, trans_val):
         if date in self.trans:
             self.trans[date].append(trans_val)
         else:
             self.trans[date] = [trans_val]
-
-    def budget_changed(self, budget):
-        self.budget.set_salary = budget
-
-    def get_budget(self):
-        return self.budget.get_clean_salary()
