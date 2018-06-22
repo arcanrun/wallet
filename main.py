@@ -14,6 +14,20 @@ if __name__ == '__main__':
         else:
             mainMenu()
 
+    def clear_db():
+        print('Удалить все данные?\nY / N:')
+        res = input()
+        if res == 'Y' or res == 'y':
+            print('Вы уверены? 3то удалит все накопленные данные!\nY / N:')
+            res_2 = input()
+            if res_2 == 'Y' or res_2 == 'y':
+                db.clear()
+                sys.exit('Базаданныx очищена!')
+            else:
+                mainMenu()
+        else:
+            mainMenu()
+
     def create_user():
         print('Введите имя владельца кошелька')
         name = input()
@@ -69,7 +83,8 @@ if __name__ == '__main__':
         '5': wallet.show_all_info,
         '6': wallet.history.get_trans,
         '7': None,
-        '8': exit
+        '8': exit,
+        '9': clear_db
     }
 
     mnu_items = [
@@ -80,7 +95,8 @@ if __name__ == '__main__':
         'Вся информация',
         'История',
         'Новый пользователь',
-        'Сохранить и выйти'
+        'Сохранить и выйти',
+        'Очистить базу данныx'
 
     ]
 
